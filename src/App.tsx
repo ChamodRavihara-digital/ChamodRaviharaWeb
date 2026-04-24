@@ -65,7 +65,7 @@ export default function App() {
     <div className="relative min-h-screen font-sans selection:bg-indigo-100 selection:text-indigo-900">
       <Navbar />
       
-      <main className="px-6 md:px-12 max-w-6xl mx-auto pt-32 pb-24 space-y-32">
+      <main className="px-6 md:px-12 max-w-6xl mx-auto pt-32 pb-24 space-y-16 md:space-y-24">
         <HeroSection />
         <CredentialsSection />
         <AboutSection />
@@ -170,7 +170,7 @@ function HeroSection() {
       {/* Floating Widget 1 (Left) - Growth Chart */}
       <motion.div 
         style={{ y: yParallaxLeft }}
-        className="absolute left-[2%] top-[20%] hidden xl:block z-0"
+        className="absolute -left-[8%] 2xl:left-[2%] top-[20%] hidden xl:block z-0"
       >
         <motion.div
           animate={{ y: [0, -20, 0], rotate: [-6, -4, -6] }}
@@ -196,7 +196,7 @@ function HeroSection() {
       {/* Floating Widget 2 (Right) - Performance Stat */}
       <motion.div 
         style={{ y: yParallaxRight }}
-        className="absolute right-[2%] bottom-[25%] hidden xl:flex flex-col z-0"
+        className="absolute -right-[8%] 2xl:right-[2%] bottom-[25%] hidden xl:flex flex-col z-0"
       >
         <motion.div
           animate={{ y: [0, 20, 0], rotate: [4, 6, 4] }}
@@ -463,13 +463,14 @@ function ServicesSection() {
   ];
 
   return (
-    <section id="services" className="space-y-12 scroll-m-32">
-      <div className="text-center max-w-2xl mx-auto space-y-4">
-        <h2 className="text-3xl md:text-5xl font-bold text-slate-900">How I Can <span className="font-serif italic text-indigo-600">Help You Grow</span></h2>
-        <p className="text-lg text-slate-600">End-to-end digital marketing solutions tailored to your business goals.</p>
-      </div>
+    <section id="services" className="scroll-m-32">
+      <div className="bg-slate-50/70 backdrop-blur-xl border border-white/60 rounded-[3rem] p-8 md:p-12 lg:p-16 shadow-[0_8px_40px_rgb(0,0,0,0.03)]">
+        <div className="text-center max-w-2xl mx-auto space-y-4 mb-14">
+          <h2 className="text-3xl md:text-5xl font-bold text-slate-900">How I Can <span className="font-serif italic text-indigo-600">Help You Grow</span></h2>
+          <p className="text-lg text-slate-600">End-to-end digital marketing solutions tailored to your business goals.</p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {services.map((svc, i) => (
           <motion.div 
             key={i}
@@ -503,6 +504,7 @@ function ServicesSection() {
             <p className="text-slate-500 text-sm mt-1">Let's discuss a custom strategy.</p>
           </div>
         </motion.div>
+      </div>
       </div>
     </section>
   );
@@ -559,6 +561,52 @@ function ContactSection() {
   );
 }
 
+function CaseStudyCard({ study, idx }: { study: typeof CASE_STUDIES[0], idx: number }) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const maxLength = 150;
+  const isLongDescription = study.desc.length > maxLength;
+  const displayText = !isLongDescription || isExpanded 
+    ? study.desc 
+    : `${study.desc.substring(0, maxLength)}...`;
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: idx * 0.1 }}
+      className="bg-white/80 backdrop-blur-sm rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white flex flex-col group hover:-translate-y-1 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300"
+    >
+      <div className="bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full w-fit mb-5">
+        {study.category}
+      </div>
+      <h3 className="font-serif text-2xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors">
+        {study.client}
+      </h3>
+      <div className="text-slate-500 leading-relaxed mb-8 flex-grow">
+        <span>{displayText}</span>
+        {isLongDescription && (
+          <button 
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-indigo-600 font-medium ml-2 hover:text-indigo-700 whitespace-nowrap"
+          >
+            {isExpanded ? 'View Less' : 'View More'}
+          </button>
+        )}
+      </div>
+      
+      <div className="flex flex-wrap gap-x-6 gap-y-4 pt-6 border-t border-slate-100">
+        {study.metrics.map((metric, mIdx) => (
+          <div key={mIdx}>
+            <div className="text-2xl font-bold text-emerald-500">{metric.val}</div>
+            <div className="text-[0.65rem] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">{metric.key}</div>
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 function CaseStudiesSection() {
   const [activeFilter, setActiveFilter] = useState('All');
 
@@ -567,11 +615,12 @@ function CaseStudiesSection() {
     : CASE_STUDIES.filter(c => c.category === activeFilter);
 
   return (
-    <>
+    <div className="space-y-16 md:space-y-24">
       {/* Case Studies Section */}
-      <section id="case-studies" className="py-20 max-w-7xl mx-auto relative z-10 scroll-m-32">
-        <div className="mb-16">
-          <div className="text-center max-w-2xl mx-auto space-y-4 mb-8">
+      <section id="case-studies" className="relative z-10 scroll-m-32">
+        <div className="bg-indigo-50/30 backdrop-blur-xl border border-white/60 rounded-[3rem] p-8 md:p-12 lg:p-16 shadow-[0_8px_40px_rgb(0,0,0,0.02)]">
+          <div className="mb-12">
+            <div className="text-center max-w-2xl mx-auto space-y-4 mb-8">
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900">Case <span className="font-serif italic text-indigo-600">Studies</span></h2>
           </div>
           
@@ -594,65 +643,47 @@ function CaseStudiesSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredCases.map((study, idx) => (
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              key={idx} className="bg-white/80 backdrop-blur-sm rounded-[2rem] p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white flex flex-col group hover:-translate-y-1 hover:shadow-[0_20px_40px_rgb(0,0,0,0.08)] transition-all duration-300"
-            >
-              <div className="bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full w-fit mb-5">
-                {study.category}
-              </div>
-              <h3 className="font-serif text-2xl font-bold text-slate-900 mb-4 group-hover:text-indigo-600 transition-colors">
-                {study.client}
-              </h3>
-              <p className="text-slate-500 leading-relaxed mb-8 flex-grow">
-                {study.desc}
-              </p>
-              
-              <div className="flex flex-wrap gap-x-6 gap-y-4 pt-6 border-t border-slate-100">
-                {study.metrics.map((metric, mIdx) => (
-                  <div key={mIdx}>
-                    <div className="text-2xl font-bold text-emerald-500">{metric.val}</div>
-                    <div className="text-[0.65rem] font-semibold text-slate-400 uppercase tracking-widest mt-0.5">{metric.key}</div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
+            <CaseStudyCard key={idx} study={study} idx={idx} />
           ))}
+        </div>
         </div>
       </section>
 
       {/* Artworks section */}
-      <section className="py-20 -mx-6 md:-mx-12 overflow-hidden relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">Artworks & Design Portfolio</h2>
-        
-        <div className="relative flex w-full py-4 overflow-hidden">
-          {/* Gradient Edges */}
-          <div className="absolute left-0 top-0 bottom-0 w-16 md:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #fafbfc, transparent)' }}></div>
-          <div className="absolute right-0 top-0 bottom-0 w-16 md:w-40 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #fafbfc, transparent)' }}></div>
+      <section className="relative z-10">
+        <div className="bg-slate-900 rounded-[3rem] p-8 md:p-12 lg:p-16 shadow-2xl relative overflow-hidden">
+          {/* Subtle glow inside the dark card */}
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-indigo-500/10 blur-[100px] pointer-events-none rounded-full translate-x-1/3 -translate-y-1/2"></div>
+          
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-12">Artworks & Design Portfolio</h2>
+          
+          <div className="relative flex w-full py-4 overflow-hidden -mx-6 md:-mx-12 px-6 md:px-12 w-[calc(100%+3rem)] md:w-[calc(100%+6rem)]">
+            {/* Gradient Edges */}
+            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to right, #0f172a, transparent)' }}></div>
+            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 z-10 pointer-events-none" style={{ background: 'linear-gradient(to left, #0f172a, transparent)' }}></div>
 
-          <div className="flex w-max animate-marquee pointer-events-auto">
-            {[...ARTWORKS, ...ARTWORKS, ...ARTWORKS, ...ARTWORKS].map((art, idx) => (
-              <div key={idx} className="bg-white/80 rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-slate-100 aspect-[4/5] md:aspect-[4/5] w-[220px] md:w-[300px] shrink-0 mx-3 md:mx-4 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative group/card">
-                <img 
-                  src={art} 
-                  alt={`Artwork ${(idx % ARTWORKS.length) + 1}`} 
-                  className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500"
-                  onError={(e) => { e.currentTarget.src = `https://placehold.co/400x400/f8fafc/94a3b8?text=POST${(idx % ARTWORKS.length) + 1}` }} 
-                />
-              </div>
-            ))}
+            <div className="flex w-max animate-marquee pointer-events-auto">
+              {[...ARTWORKS, ...ARTWORKS, ...ARTWORKS, ...ARTWORKS].map((art, idx) => (
+                <div key={idx} className="bg-white/5 rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-slate-700 aspect-[4/5] md:aspect-[4/5] w-[220px] md:w-[300px] shrink-0 mx-3 md:mx-4 hover:-translate-y-1 hover:shadow-2xl transition-all duration-300 relative group/card">
+                  <img 
+                    src={art} 
+                    alt={`Artwork ${(idx % ARTWORKS.length) + 1}`} 
+                    className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-500 opacity-90 group-hover/card:opacity-100"
+                    onError={(e) => { e.currentTarget.src = `https://placehold.co/400x400/0f172a/94a3b8?text=POST${(idx % ARTWORKS.length) + 1}` }} 
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* Ads section */}
-      <section className="py-20 max-w-7xl mx-auto relative z-10">
-        <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">Campaign <span className="font-serif italic text-indigo-600">Visuals</span></h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <section className="relative z-10">
+        <div className="bg-white/60 backdrop-blur-xl border border-white rounded-[3rem] p-8 md:p-12 lg:p-16 shadow-[0_8px_40px_rgb(0,0,0,0.03)] text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-12">Creative <span className="font-serif italic text-indigo-600">That Converts</span></h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {ADS.map((ad, idx) => (
             <motion.div 
               initial={{ opacity: 0, y: 20 }}
@@ -674,9 +705,10 @@ function CaseStudiesSection() {
               </p>
             </motion.div>
           ))}
+          </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 
