@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "motion/react";
 import { ArrowUpRight, BarChart3, Globe2, Mail, Megaphone, MonitorPlay, Phone, Users, GraduationCap } from "lucide-react";
-import myPhoto from "./assets/myphoto.jpg";
 
 const CATEGORIES = ['All', 'E-Commerce', 'Lead Generation', 'Brand Awareness', 'Brand & Sales', 'Freelance'];
 
@@ -410,7 +409,7 @@ function AboutSection() {
         >
           <div className="flex justify-center md:justify-center">
              <div className="w-48 h-48 md:w-52 md:h-52 rounded-3xl overflow-hidden shadow-[0_10px_40px_rgb(0,0,0,0.06)] bg-white border-4 border-white/60">
-                <img src={myPhoto} alt="Chamod" className="w-full h-full object-cover" />
+                <img src="https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/myphoto.jpg" alt="Chamod" className="w-full h-full object-cover" />
              </div>
           </div>
           <div className="grid grid-cols-2 gap-4 w-full md:w-auto">
