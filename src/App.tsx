@@ -45,19 +45,24 @@ const CASE_STUDIES = [
 ];
 
 const ARTWORKS = [
-  'assets/POST1.svg', 'assets/POST2.svg', 'assets/POST3.svg', 'assets/POST4.svg',
-  'assets/POST5.svg', 'assets/POST6.svg', 'assets/POST7.svg'
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/POST1.svg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/POST2.svg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/POST3.svg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/POST4.svg',
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/POST5.svg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/POST6.svg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/POST7.svg'
 ];
 
 const ADS = [
-  { item: 'assets/1_HighPerformanceMetaConversionAds.svg', desc: 'High-Performance Meta Conversion Ads focused on maximizing ROAS.' },
-  { item: 'assets/2_EcommerceBasedFacebookSalesAds.svg', desc: 'E-Commerce driven Facebook Sales campaigns for scalable growth.' },
-  { item: 'assets/3_HighPerformanceMetaLeadAds.svg', desc: 'Optimized Meta Lead Ads designed for high-intent customer acquisition.' },
-  { item: 'assets/4_EcommerceBasedFacebookSalesAds.svg', desc: 'Dynamic Product Ads and retargeting flows for E-commerce brands.' },
-  { item: 'assets/5_GA4EcommerceTrackingWordpress.svg', desc: 'Advanced GA4 E-Commerce tracking implementation for WordPress/WooCommerce.' },
-  { item: 'assets/6_FacebookPixelConversionAPI.svg', desc: 'Server-side tracking setup using Facebook Pixel & Conversions API.' },
-  { item: 'assets/7_metapixelandconversionapi.svg', desc: 'Seamless Meta Pixel integration to ensure accurate data attribution.' },
-  { item: 'assets/8_FacebookAdsLeadGeneration.svg', desc: 'End-to-end Facebook Ads strategy focused on B2B and B2C Lead Generation.' }
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/1_HighPerformanceMetaConversionAds.svg', desc: 'High-Performance Meta Conversion Ads focused on maximizing ROAS.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/2_EcommerceBasedFacebookSalesAds.svg', desc: 'E-Commerce driven Facebook Sales campaigns for scalable growth.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/3_HighPerformanceMetaLeadAds.svg', desc: 'Optimized Meta Lead Ads designed for high-intent customer acquisition.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/4_EcommerceBasedFacebookSalesAds.svg', desc: 'Dynamic Product Ads and retargeting flows for E-commerce brands.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/5_GA4EcommerceTrackingWordpress.svg', desc: 'Advanced GA4 E-Commerce tracking implementation for WordPress/WooCommerce.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/6_FacebookPixelConversionAPI.svg', desc: 'Server-side tracking setup using Facebook Pixel & Conversions API.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/7_metapixelandconversionapi.svg', desc: 'Seamless Meta Pixel integration to ensure accurate data attribution.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/assets/8_FacebookAdsLeadGeneration.svg', desc: 'End-to-end Facebook Ads strategy focused on B2B and B2C Lead Generation.' }
 ];
 
 export default function App() {
