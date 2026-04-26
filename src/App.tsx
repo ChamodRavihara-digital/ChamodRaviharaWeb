@@ -1,6 +1,6 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "motion/react";
-import { ArrowUpRight, BarChart3, Globe2, Mail, Megaphone, MonitorPlay, Phone, Users, GraduationCap } from "lucide-react";
+import { ArrowUpRight, BarChart3, Globe2, Mail, Megaphone, MonitorPlay, Phone, Users, GraduationCap, ChevronLeft, ChevronRight, CheckCircle2, Target } from "lucide-react";
 
 const CATEGORIES = ['All', 'E-Commerce', 'Lead Generation', 'Brand Awareness', 'Brand & Sales', 'Freelance'];
 
@@ -64,26 +64,46 @@ const ADS = [
   { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/8_FacebookAdsLeadGeneration.jpg', desc: 'End-to-end Facebook Ads strategy focused on B2B and B2C Lead Generation.' }
 ];
 
+export type PageType = 'home' | 'web-solutions' | 'pricing';
+
 export default function App() {
+  const [page, setPage] = useState<PageType>('home');
+
   return (
     <div className="relative min-h-screen font-sans selection:bg-indigo-100 selection:text-indigo-900">
-      <Navbar />
+      <Navbar page={page} setPage={setPage} />
       
-      <main className="px-6 md:px-12 max-w-6xl mx-auto pt-32 pb-24 space-y-16 md:space-y-24">
-        <HeroSection />
-        <CredentialsSection />
-        <AboutSection />
-        <ServicesSection />
-        <CaseStudiesSection />
-        <ContactSection />
-      </main>
+      {page === 'home' && (
+        <main className="px-6 md:px-12 max-w-6xl mx-auto pt-32 pb-24 space-y-16 md:space-y-24">
+          <HeroSection setPage={setPage} />
+          <CredentialsSection />
+          <AboutSection />
+          <ServicesSection />
+          <CaseStudiesSection />
+          <ContactSection />
+        </main>
+      )}
+      
+      {page === 'web-solutions' && (
+        <main className="px-6 md:px-12 max-w-6xl mx-auto pt-32 pb-24 min-h-[85vh] space-y-16 md:space-y-24">
+          <WebSolutions />
+          <ContactSection />
+        </main>
+      )}
+
+      {page === 'pricing' && (
+        <main className="px-6 md:px-12 max-w-6xl mx-auto pt-32 pb-24 min-h-[85vh] space-y-16 md:space-y-24">
+          <PricingSection />
+          <ContactSection />
+        </main>
+      )}
 
       <Footer />
     </div>
   );
 }
 
-function Navbar() {
+function Navbar({ page, setPage }: { page: string, setPage: (p: PageType) => void }) {
   return (
     <motion.nav 
       initial={{ y: -20, opacity: 0 }}
@@ -91,14 +111,15 @@ function Navbar() {
       className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
     >
       <div className="bg-white/70 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/40 rounded-full px-6 py-3 flex items-center justify-between w-full max-w-4xl mx-auto">
-        <div className="flex items-center gap-2">
-          {/* Logo Fallback - Since actual path is unknown, using a stylistic text approach matching the vibe */}
-          <span className="font-serif font-semibold text-lg tracking-tight text-slate-900">Chamod Gamage</span>
+        <div className="flex items-center gap-2 cursor-pointer" onClick={() => { setPage('home'); window.scrollTo(0,0); }}>
+          <span className="font-serif font-semibold text-lg tracking-tight text-slate-900 leading-none">Chamod Gamage</span>
         </div>
-        <div className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-          <a href="#about" className="hover:text-slate-900 transition-colors">About</a>
-          <a href="#services" className="hover:text-slate-900 transition-colors">Services</a>
-          <a href="#case-studies" className="hover:text-slate-900 transition-colors">Case Studies</a>
+        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+          <button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}) , 100); }} className="hover:text-slate-900 transition-colors">About</button>
+          <button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('services')?.scrollIntoView({behavior: 'smooth'}) , 100); }} className="hover:text-slate-900 transition-colors">Services</button>
+          <button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('case-studies')?.scrollIntoView({behavior: 'smooth'}) , 100); }} className="hover:text-slate-900 transition-colors">Case Studies</button>
+          <button onClick={() => { setPage('web-solutions'); window.scrollTo(0,0); }} className={`transition-colors font-semibold ${page === 'web-solutions' ? 'text-indigo-600' : 'text-slate-800 hover:text-indigo-600'}`}>Web Solutions</button>
+          <button onClick={() => { setPage('pricing'); window.scrollTo(0,0); }} className={`transition-colors font-semibold ${page === 'pricing' ? 'text-indigo-600' : 'text-slate-800 hover:text-indigo-600'}`}>Pricing</button>
         </div>
         <div className="flex items-center">
           <motion.button 
@@ -120,7 +141,7 @@ function Navbar() {
   );
 }
 
-function HeroSection() {
+function HeroSection({ setPage }: { setPage: (p: PageType)=>void }) {
   const ref = useRef<any>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -713,6 +734,345 @@ function CaseStudiesSection() {
         </div>
       </section>
     </div>
+  );
+}
+
+const WEB_SOLUTIONS = [
+  { title: "Tourism Website (Custom UI + Web Development)", url: "https://birdflightsrilanka.com/" },
+  { title: "Ecommerce Website (Web Development)", url: "https://santhari.com/" },
+  { title: "Architecture Business Website", url: "https://vertiqengineering.com/" },
+  { title: "Cosmetic Website", url: "https://sephyraluxe.com/" },
+  { title: "Ecommerce", url: "https://hellocomfylove.com/" },
+  { title: "B2B Portfolio", url: "https://ymacfootwear.com/" },
+  { title: "Clothing Web Site - Ecommerce Store", url: "http://kapro.lk/" },
+  { title: "Reseller-Management System", url: "http://www.sscdrop.com" },
+  { title: "Luxury Hotel Booking", url: "https://grand.zenax.info/" },
+  { title: "Gourmet Online Food Ordering", url: "https://mysunshine.lk/" }
+];
+
+function WebSolutions() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [isDown, setIsDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeft, setScrollLeft] = useState(0);
+
+  const extendedSolutions = [...WEB_SOLUTIONS, ...WEB_SOLUTIONS, ...WEB_SOLUTIONS];
+
+  useEffect(() => {
+    if (scrollRef.current && scrollRef.current.children.length > WEB_SOLUTIONS.length) {
+      const children = scrollRef.current.children;
+      const singleSetWidth = (children[WEB_SOLUTIONS.length] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft;
+      scrollRef.current.scrollLeft = singleSetWidth;
+    }
+  }, []);
+
+  const handleScroll = () => {
+    if (!scrollRef.current || scrollRef.current.children.length <= WEB_SOLUTIONS.length) return;
+    const container = scrollRef.current;
+    const children = container.children;
+    const singleSetWidth = (children[WEB_SOLUTIONS.length] as HTMLElement).offsetLeft - (children[0] as HTMLElement).offsetLeft;
+
+    if (container.scrollLeft <= 5) {
+      container.scrollLeft += singleSetWidth;
+    } else if (container.scrollLeft >= singleSetWidth * 2 - 5) {
+      container.scrollLeft -= singleSetWidth;
+    }
+  };
+
+  const scrollPrev = () => {
+    if (scrollRef.current && scrollRef.current.children.length > 0) {
+      const container = scrollRef.current;
+      const childWidth = (container.children[0] as HTMLElement).offsetWidth + 24;
+      container.scrollBy({ left: -childWidth, behavior: 'smooth' });
+    }
+  };
+
+  const scrollNext = () => {
+    if (scrollRef.current && scrollRef.current.children.length > 0) {
+      const container = scrollRef.current;
+      const childWidth = (container.children[0] as HTMLElement).offsetWidth + 24;
+      container.scrollBy({ left: childWidth, behavior: 'smooth' });
+    }
+  };
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    setIsDown(true);
+    scrollRef.current.classList.remove('snap-x', 'snap-mandatory');
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const onMouseLeave = () => {
+    setIsDown(false);
+    if (scrollRef.current) scrollRef.current.classList.add('snap-x', 'snap-mandatory');
+  };
+
+  const onMouseUp = () => {
+    setIsDown(false);
+    if (scrollRef.current) scrollRef.current.classList.add('snap-x', 'snap-mandatory');
+  };
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDown || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - startX) * 2;
+    scrollRef.current.scrollLeft = scrollLeft - walk;
+  };
+
+  return (
+    <section className="animate-in fade-in duration-500 relative z-10 w-full pt-4">
+      <div className="bg-slate-50/70 backdrop-blur-xl border border-white/60 rounded-[3rem] p-8 md:p-12 shadow-[0_8px_40px_rgb(0,0,0,0.03)] text-center overflow-hidden">
+        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Web <span className="font-serif italic text-indigo-600">Solutions</span></h2>
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-10">Showcasing custom websites, e-commerce stores, and digital platforms. Drag or scroll to explore.</p>
+
+        {/* Scrollable container for mobile & desktop */}
+        <div className="relative group">
+          <button 
+            onClick={scrollPrev}
+            className="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white hover:bg-slate-50 text-slate-800 rounded-full shadow-[0_4px_20px_rgb(0,0,0,0.1)] border border-slate-100 transition-all opacity-100 md:opacity-0 group-hover:opacity-100 focus:opacity-100"
+            aria-label="Previous"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={scrollNext}
+            className="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 z-20 p-3 bg-white hover:bg-slate-50 text-slate-800 rounded-full shadow-[0_4px_20px_rgb(0,0,0,0.1)] border border-slate-100 transition-all opacity-100 md:opacity-0 group-hover:opacity-100 focus:opacity-100"
+            aria-label="Next"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          <div 
+            ref={scrollRef}
+            onMouseDown={onMouseDown}
+            onMouseLeave={onMouseLeave}
+            onMouseUp={onMouseUp}
+            onMouseMove={onMouseMove}
+            onScroll={handleScroll}
+            className="w-full overflow-x-auto pb-10 pt-4 snap-x snap-mandatory flex gap-6 px-4 md:px-8 hide-scrollbars -mx-4 md:-mx-8 w-[calc(100%+2rem)] md:w-[calc(100%+4rem)] cursor-grab active:cursor-grabbing"
+          >
+            {extendedSolutions.map((site, i) => (
+              <div 
+                key={i}
+                className="snap-center w-[300px] md:w-[400px] bg-white rounded-3xl p-4 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-slate-100 group/card shrink-0 flex flex-col pointer-events-auto hover:-translate-y-2 transition-transform duration-300"
+              >
+                <div className="aspect-[16/10] bg-slate-100 rounded-2xl overflow-hidden mb-5 relative border border-slate-200 pointer-events-none">
+                  <img 
+                    src={`https://image.thum.io/get/width/800/crop/800/${site.url}`} 
+                    alt={site.title}
+                    className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700 pointer-events-none" 
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-indigo-900/0 group-hover/card:bg-indigo-900/10 transition-colors pointer-events-none"></div>
+                </div>
+                
+                <h3 className="font-bold text-slate-900 text-lg mb-2 text-left">{site.title}</h3>
+                
+                <a 
+                  href={site.url.startsWith('http') ? site.url : `https://${site.url}`} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  draggable={false}
+                  className="mt-auto inline-flex items-center gap-2 text-indigo-600 font-semibold hover:text-indigo-800 transition-colors w-fit group/btn"
+                >
+                  Visit Website 
+                  <ArrowUpRight className="w-4 h-4 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+const DIGITAL_MARKETING_PRICING = [
+  {
+    name: "Starter Package",
+    price: "$150",
+    originalPrice: "$170",
+    description: "I will manage your social media marketing and advertising.",
+    features: [
+      "1 competitor analyzed",
+      "Action plan",
+      "Target audience and buyer persona",
+      "3 Meta campaigns / 1 Google Campaigns"
+    ],
+    highlighted: false
+  },
+  {
+    name: "Growth Package",
+    price: "$250",
+    originalPrice: null,
+    description: "Marketing analysis + marketing strategy, channels & tactics, marketing action plan.",
+    features: [
+      "5 Meta campaigns",
+      "2 Google Campaigns"
+    ],
+    highlighted: true,
+    badge: "Selected"
+  },
+  {
+    name: "Premium Package",
+    price: "$550",
+    originalPrice: null,
+    description: "I will handle your social media, ads, content writing, SEO, email marketing and website maintenance.",
+    features: [
+      "Social Media & Ads Management",
+      "Content Writing",
+      "Advanced SEO",
+      "Email Marketing",
+      "Website Maintenance"
+    ],
+    highlighted: false
+  }
+];
+
+const WEB_DEV_PRICING = [
+  {
+    name: "Starter Pack",
+    price: "From $500",
+    target: "Small business / restaurant",
+    features: [
+      "5 pages website",
+      "Mobile responsive",
+      "Basic SEO",
+      "Contact form",
+      "Basic speed optimization"
+    ],
+    highlighted: false
+  },
+  {
+    name: "Growth Package",
+    price: "From $1000",
+    target: "This is your MAIN SELLER",
+    features: [
+      "Everything in Starter",
+      "Conversion-focused design",
+      "Booking / ordering system",
+      "Meta Pixel + GA setup",
+      "Landing page",
+      "Basic funnel structure"
+    ],
+    highlighted: true,
+    badge: "Main Seller"
+  },
+  {
+    name: "Premium Package",
+    price: "From $2000",
+    target: "High-end clients",
+    features: [
+      "Custom UI/UX",
+      "Advanced ecommerce / ordering system",
+      "Full funnel (ads + landing pages)",
+      "Speed optimization",
+      "Ongoing support"
+    ],
+    highlighted: false
+  }
+];
+
+function PricingSection() {
+  const [pricingType, setPricingType] = useState<'marketing' | 'web'>('marketing');
+
+  const currentPricing = pricingType === 'marketing' ? DIGITAL_MARKETING_PRICING : WEB_DEV_PRICING;
+
+  return (
+    <section className="animate-in fade-in duration-500 relative z-10 w-full pt-4">
+      <div className="bg-slate-50/70 backdrop-blur-xl border border-white/60 rounded-[3rem] p-8 md:p-12 shadow-[0_8px_40px_rgb(0,0,0,0.03)] text-center overflow-hidden">
+        <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6">Simple, <span className="font-serif italic text-indigo-600">Transparent</span> Pricing</h2>
+        <p className="text-lg text-slate-600 max-w-2xl mx-auto mb-10">Choose the package that best fits your business needs and growth trajectory.</p>
+
+        {/* Toggle */}
+        <div className="flex justify-center mb-12">
+          <div className="bg-white p-1.5 rounded-full border border-slate-200 shadow-sm flex items-center relative">
+            <button 
+              onClick={() => setPricingType('marketing')}
+              className={`relative z-10 px-6 py-2.5 rounded-full font-semibold text-sm transition-colors ${pricingType === 'marketing' ? 'text-white' : 'text-slate-600 hover:text-slate-900'}`}
+            >
+              Digital Marketing
+            </button>
+            <button 
+              onClick={() => setPricingType('web')}
+              className={`relative z-10 px-6 py-2.5 rounded-full font-semibold text-sm transition-colors ${pricingType === 'web' ? 'text-white' : 'text-slate-600 hover:text-slate-900'}`}
+            >
+              Web Dev + Marketing
+            </button>
+            <div 
+              className={`absolute top-1.5 bottom-1.5 left-1.5 w-[calc(50%-6px)] bg-indigo-600 rounded-full transition-transform duration-300 ease-out z-0`}
+              style={{ transform: pricingType === 'marketing' ? 'translateX(0)' : 'translateX(calc(100% + 12px))' }}
+            />
+          </div>
+        </div>
+
+        {/* Pricing Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          {currentPricing.map((pkg, i) => (
+            <div 
+              key={i}
+              className={`relative rounded-3xl p-8 flex flex-col ${pkg.highlighted ? 'bg-indigo-900 text-white shadow-xl scale-[1.02] md:scale-[1.05] z-10' : 'bg-white text-slate-900 shadow-sm border border-slate-100'}`}
+            >
+              {pkg.badge && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-xs font-bold uppercase tracking-widest py-1.5 px-4 rounded-full shadow-md whitespace-nowrap">
+                  {pkg.badge}
+                </div>
+              )}
+              
+              <h3 className={`text-xl font-bold mb-2 ${pkg.highlighted ? 'text-indigo-100' : 'text-slate-900'}`}>{pkg.name}</h3>
+              
+              <div className="mb-4">
+                {pkg.originalPrice && (
+                  <div className="text-slate-400 line-through text-sm font-medium">{pkg.originalPrice}</div>
+                )}
+                <div className="flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold">{pkg.price}</span>
+                  {(pkg.price.includes('150') || pkg.price.includes('250') || pkg.price.includes('550')) && <span className={`text-sm ${pkg.highlighted ? 'text-indigo-200' : 'text-slate-500'}`}>/mo</span>}
+                </div>
+              </div>
+
+              {'target' in pkg && pkg.target && (
+                 <div className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold mb-4 w-fit border ${
+                   pkg.highlighted 
+                     ? 'bg-white/10 text-indigo-100 border-white/20' 
+                     : 'bg-indigo-50 text-indigo-600 border-indigo-100'
+                 }`}>
+                   <Target className="w-3.5 h-3.5" />
+                   <span>{pkg.target}</span>
+                 </div>
+              )}
+
+              {'description' in pkg && pkg.description && (
+                <p className={`text-sm mb-6 ${pkg.highlighted ? 'text-indigo-100/80' : 'text-slate-600'}`}>
+                  {pkg.description}
+                </p>
+              )}
+
+              <div className="h-px w-full bg-current opacity-10 mb-6"></div>
+
+              <ul className="space-y-4 mb-8 flex-grow">
+                {pkg.features.map((feature, j) => (
+                  <li key={j} className="flex gap-3 text-sm">
+                    <CheckCircle2 className={`w-5 h-5 shrink-0 ${pkg.highlighted ? 'text-indigo-300' : 'text-indigo-500'}`} />
+                    <span className={pkg.highlighted ? 'text-indigo-50' : 'text-slate-600'}>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a 
+                href="#contact"
+                className={`mt-auto text-center w-full py-3 px-6 rounded-xl font-semibold transition-all ${pkg.highlighted ? 'bg-white text-indigo-900 hover:bg-slate-100' : 'bg-slate-900 text-white hover:bg-slate-800'}`}
+              >
+                Get Started
+              </a>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
   );
 }
 
