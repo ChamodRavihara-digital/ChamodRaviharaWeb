@@ -891,6 +891,20 @@ function WebSolutions() {
 
 const DIGITAL_MARKETING_PRICING = [
   {
+    name: "Meta Page Setup",
+    price: "$50",
+    originalPrice: null,
+    target: "One Time Payment",
+    description: "Professional Facebook and Instagram page setup.",
+    features: [
+      "Facebook/Instagram page setup",
+      "Pages claimed to Meta Business Suite",
+      "Add people/assets correctly",
+      "Meta pixels & API Configuration"
+    ],
+    highlighted: false
+  },
+  {
     name: "Starter Package",
     price: "$150",
     originalPrice: "$170",
@@ -1009,7 +1023,7 @@ function PricingSection() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div className={`grid grid-cols-1 md:grid-cols-2 ${currentPricing.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6 text-left`}>
           {currentPricing.map((pkg, i) => (
             <div 
               key={i}
