@@ -44,7 +44,7 @@ const CASE_STUDIES = [
 ];
 
 const ARTWORKS = [
-  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST1.jpg', 
+  'ChamodRavihara-digital/ChamodRaviharaWeb/src/assets/Public/POST1.jpg', 
   'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST2.jpg', 
   'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST3.jpg', 
   'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST4.jpg',
