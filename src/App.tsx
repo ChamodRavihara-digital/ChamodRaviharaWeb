@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "motion/react";
-import { ArrowUpRight, BarChart3, Globe2, Mail, Megaphone, MonitorPlay, Phone, Users, GraduationCap, ChevronLeft, ChevronRight, CheckCircle2, Target } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from "motion/react";
+import { ArrowUpRight, BarChart3, Globe2, Mail, Megaphone, MonitorPlay, Phone, Users, GraduationCap, ChevronLeft, ChevronRight, CheckCircle2, Target, Menu, X } from "lucide-react";
 
 const CATEGORIES = ['All', 'E-Commerce', 'Lead Generation', 'Brand Awareness', 'Brand & Sales', 'Freelance'];
 
@@ -74,14 +74,16 @@ export default function App() {
       <Navbar page={page} setPage={setPage} />
       
       {page === 'home' && (
-        <main className="px-6 md:px-12 max-w-6xl mx-auto pt-32 pb-24 space-y-16 md:space-y-24">
+        <>
           <HeroSection setPage={setPage} />
-          <CredentialsSection />
-          <AboutSection />
-          <ServicesSection />
-          <CaseStudiesSection />
-          <ContactSection />
-        </main>
+          <main className="px-6 md:px-12 max-w-6xl mx-auto pb-24 space-y-16 md:space-y-24">
+            <CredentialsSection />
+            <AboutSection />
+            <ServicesSection />
+            <CaseStudiesSection />
+            <ContactSection />
+          </main>
+        </>
       )}
       
       {page === 'web-solutions' && (
@@ -104,38 +106,94 @@ export default function App() {
 }
 
 function Navbar({ page, setPage }: { page: string, setPage: (p: PageType) => void }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleNavClick = (
+    targetPage: PageType,
+    elementId?: string
+  ) => {
+    setPage(targetPage);
+    setIsOpen(false);
+    if (elementId) {
+      setTimeout(() => document.getElementById(elementId)?.scrollIntoView({ behavior: 'smooth' }), 100);
+    } else {
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     <motion.nav 
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4"
     >
-      <div className="bg-white/70 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/40 rounded-full px-6 py-3 flex items-center justify-between w-full max-w-4xl mx-auto">
-        <div className="flex items-center gap-2 cursor-pointer" onClick={() => { setPage('home'); window.scrollTo(0,0); }}>
-          <span className="font-serif font-semibold text-lg tracking-tight text-slate-900 leading-none">Chamod Gamage</span>
-        </div>
-        <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-          <button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('about')?.scrollIntoView({behavior: 'smooth'}) , 100); }} className="hover:text-slate-900 transition-colors">About</button>
-          <button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('services')?.scrollIntoView({behavior: 'smooth'}) , 100); }} className="hover:text-slate-900 transition-colors">Services</button>
-          <button onClick={() => { setPage('home'); setTimeout(() => document.getElementById('case-studies')?.scrollIntoView({behavior: 'smooth'}) , 100); }} className="hover:text-slate-900 transition-colors">Case Studies</button>
-          <button onClick={() => { setPage('web-solutions'); window.scrollTo(0,0); }} className={`transition-colors font-semibold ${page === 'web-solutions' ? 'text-indigo-600' : 'text-slate-800 hover:text-indigo-600'}`}>Web Solutions</button>
-          <button onClick={() => { setPage('pricing'); window.scrollTo(0,0); }} className={`transition-colors font-semibold ${page === 'pricing' ? 'text-indigo-600' : 'text-slate-800 hover:text-indigo-600'}`}>Pricing</button>
-        </div>
-        <div className="flex items-center">
-          <motion.button 
-            data-tally-open="681NBo" data-tally-layout="modal" data-tally-width="1000" data-tally-emoji-text="👋" data-tally-emoji-animation="wave"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="relative group inline-flex rounded-full p-[2px] shadow-sm hover:shadow-md transition-all"
-          >
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-50 group-hover:opacity-100 blur-sm transition-opacity duration-300 rounded-full" />
-            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-70 group-hover:opacity-100 rounded-full transition-opacity duration-300" />
-            <div className="relative flex items-center gap-2 bg-slate-900 text-white text-sm font-medium px-5 py-2 rounded-full">
-              Get in touch
-              <ArrowUpRight className="w-4 h-4 text-indigo-300 group-hover:text-white transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+      <div className="bg-white/70 backdrop-blur-md shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-white/40 rounded-3xl md:rounded-full px-6 py-3 w-full max-w-4xl mx-auto flex flex-col md:block">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2 cursor-pointer shrink-0" onClick={() => handleNavClick('home')}>
+            <span className="font-serif font-semibold text-lg tracking-tight text-slate-900 leading-none">Chamod Gamage</span>
+          </div>
+          
+          <div className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
+            <button onClick={() => handleNavClick('home', 'about')} className="hover:text-slate-900 transition-colors">About</button>
+            <button onClick={() => handleNavClick('home', 'services')} className="hover:text-slate-900 transition-colors">Services</button>
+            <button onClick={() => handleNavClick('home', 'case-studies')} className="hover:text-slate-900 transition-colors">Case Studies</button>
+            <button onClick={() => handleNavClick('web-solutions')} className={`transition-colors font-semibold ${page === 'web-solutions' ? 'text-indigo-600' : 'text-slate-800 hover:text-indigo-600'}`}>Web Solutions</button>
+            <button onClick={() => handleNavClick('pricing')} className={`transition-colors font-semibold ${page === 'pricing' ? 'text-indigo-600' : 'text-slate-800 hover:text-indigo-600'}`}>Pricing</button>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <div className="hidden md:block">
+              <motion.button 
+                data-tally-open="681NBo" data-tally-layout="modal" data-tally-width="1000" data-tally-emoji-text="👋" data-tally-emoji-animation="wave"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative group inline-flex rounded-full p-[2px] shadow-sm hover:shadow-md transition-all"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-50 group-hover:opacity-100 blur-sm transition-opacity duration-300 rounded-full" />
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-70 group-hover:opacity-100 rounded-full transition-opacity duration-300" />
+                <div className="relative flex items-center gap-2 bg-slate-900 text-white text-sm font-medium px-5 py-2 rounded-full">
+                  Get in touch
+                  <ArrowUpRight className="w-4 h-4 text-indigo-300 group-hover:text-white transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </div>
+              </motion.button>
             </div>
-          </motion.button>
+            
+            <button 
+              className="md:hidden p-2 text-slate-600 hover:bg-slate-100 rounded-full transition-colors"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden flex flex-col gap-4 border-t border-slate-100 mt-3"
+            >
+              <div className="pt-4 pb-2 flex flex-col gap-4">
+                <button onClick={() => handleNavClick('home', 'about')} className="text-left font-medium text-slate-600 hover:text-slate-900 transition-colors">About</button>
+                <button onClick={() => handleNavClick('home', 'services')} className="text-left font-medium text-slate-600 hover:text-slate-900 transition-colors">Services</button>
+                <button onClick={() => handleNavClick('home', 'case-studies')} className="text-left font-medium text-slate-600 hover:text-slate-900 transition-colors">Case Studies</button>
+                <button onClick={() => handleNavClick('web-solutions')} className={`text-left font-semibold ${page === 'web-solutions' ? 'text-indigo-600' : 'text-slate-800'}`}>Web Solutions</button>
+                <button onClick={() => handleNavClick('pricing')} className={`text-left font-semibold ${page === 'pricing' ? 'text-indigo-600' : 'text-slate-800'}`}>Pricing</button>
+                
+                <button 
+                  data-tally-open="681NBo" data-tally-layout="modal" data-tally-width="1000" data-tally-emoji-text="👋" data-tally-emoji-animation="wave"
+                  className="mt-2 bg-slate-900 text-white text-sm font-medium px-5 py-2.5 rounded-full flex items-center justify-center gap-2 w-full"
+                >
+                  Get in touch
+                  <ArrowUpRight className="w-4 h-4 text-indigo-300" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.nav>
   );
@@ -989,10 +1047,69 @@ const WEB_DEV_PRICING = [
   }
 ];
 
-function PricingSection() {
-  const [pricingType, setPricingType] = useState<'marketing' | 'web'>('marketing');
+const SOCIAL_MEDIA_HANDLING_PRICING = [
+  {
+    name: "Starter Package",
+    price: "$50",
+    originalPrice: null,
+    target: "Social Media Optimizer 1.0",
+    description: "",
+    features: [
+      "30 Days",
+      "**02 Platforms**",
+      "**10 SEO POSTS** (8 Static, 1 Reel, 1 Carousel)",
+      "Story Highlights",
+      "Custom Graphics",
+      "Social Kit",
+      "Reporting"
+    ],
+    highlighted: false
+  },
+  {
+    name: "Growth Package",
+    price: "$90",
+    originalPrice: null,
+    target: "Social Media Optimizer 2.0",
+    description: "",
+    features: [
+      "30 Days",
+      "**03 Platforms**",
+      "**15 SEO POSTS** (10 Static, 3 Reel, 2 Carousel)",
+      "Story Highlights",
+      "Custom Graphics",
+      "Social Kit",
+      "Reporting"
+    ],
+    highlighted: true,
+    badge: "Main Seller"
+  },
+  {
+    name: "Premium Package",
+    price: "$150",
+    originalPrice: null,
+    target: "Social Media Best Seller",
+    description: "",
+    features: [
+      "30 Days",
+      "**Up to 05 platforms**",
+      "**30 SEO POSTS** (20 Static, 5 Reel, 5 Carousel)",
+      "Story Highlights",
+      "Custom Graphics",
+      "Social Kit",
+      "Reporting"
+    ],
+    highlighted: false
+  }
+];
 
-  const currentPricing = pricingType === 'marketing' ? DIGITAL_MARKETING_PRICING : WEB_DEV_PRICING;
+function PricingSection() {
+  const [pricingType, setPricingType] = useState<'marketing' | 'social' | 'web'>('marketing');
+
+  const currentPricing = pricingType === 'marketing' 
+    ? DIGITAL_MARKETING_PRICING 
+    : pricingType === 'social' 
+      ? SOCIAL_MEDIA_HANDLING_PRICING 
+      : WEB_DEV_PRICING;
 
   return (
     <section className="animate-in fade-in duration-500 relative z-10 w-full pt-4">
@@ -1002,32 +1119,57 @@ function PricingSection() {
 
         {/* Toggle */}
         <div className="flex justify-center mb-12">
-          <div className="bg-white p-1.5 rounded-full border border-slate-200 shadow-sm flex items-center relative">
-            <button 
-              onClick={() => setPricingType('marketing')}
-              className={`relative z-10 px-6 py-2.5 rounded-full font-semibold text-sm transition-colors ${pricingType === 'marketing' ? 'text-white' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Digital Marketing
-            </button>
-            <button 
-              onClick={() => setPricingType('web')}
-              className={`relative z-10 px-6 py-2.5 rounded-full font-semibold text-sm transition-colors ${pricingType === 'web' ? 'text-white' : 'text-slate-600 hover:text-slate-900'}`}
-            >
-              Web Dev + Marketing
-            </button>
-            <div 
-              className={`absolute top-1.5 bottom-1.5 left-1.5 w-[calc(50%-6px)] bg-indigo-600 rounded-full transition-transform duration-300 ease-out z-0`}
-              style={{ transform: pricingType === 'marketing' ? 'translateX(0)' : 'translateX(calc(100% + 12px))' }}
-            />
+          <div className="bg-white p-1.5 rounded-[2rem] border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center gap-1 relative overflow-hidden xl:overflow-visible">
+            {(['marketing', 'social', 'web'] as const).map((tab) => (
+              <button 
+                key={tab}
+                onClick={() => setPricingType(tab)}
+                className={`relative px-4 sm:px-6 py-2.5 rounded-full font-semibold text-xs sm:text-sm transition-colors z-10 flex-1 whitespace-nowrap ${pricingType === tab ? 'text-white' : 'text-slate-600 hover:text-slate-900'}`}
+              >
+                {tab === 'marketing' ? 'Digital Marketing' : tab === 'social' ? 'Social Media Handling' : 'Web Dev + Marketing'}
+                {pricingType === tab && (
+                  <motion.div 
+                    layoutId="pricing-tab-bg"
+                    className="absolute inset-0 bg-indigo-600 rounded-full -z-10"
+                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                  />
+                )}
+              </button>
+            ))}
           </div>
         </div>
+
+        {pricingType === 'social' && (
+          <div className="max-w-4xl mx-auto mb-10">
+            <p className="text-slate-600 mb-4 text-sm md:text-base font-medium">
+              <span className="text-indigo-600 font-bold">I will be your social media marketing manager.</span> All packages include:
+            </p>
+            <div className="flex flex-wrap justify-center gap-x-4 md:gap-x-6 gap-y-3 text-xs md:text-sm text-slate-500 font-medium bg-white px-6 py-4 rounded-3xl border border-slate-100 shadow-sm">
+              {[
+                "Profile Optimization",
+                "Custom Content & Graphics",
+                "Branded Posts",
+                "Reels & Shorts",
+                "SEO & Hashtags",
+                "Social Kit",
+                "Scheduling & Posting"
+              ].map((item, idx) => (
+                <span key={idx} className="flex items-center gap-1.5 whitespace-nowrap"><CheckCircle2 className="w-3.5 h-3.5 text-indigo-400 shrink-0" /> {item}</span>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Pricing Cards */}
         <div className={`grid grid-cols-1 md:grid-cols-2 ${currentPricing.length === 4 ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-6 text-left`}>
           {currentPricing.map((pkg, i) => (
-            <div 
+            <motion.div 
               key={i}
-              className={`relative rounded-3xl p-8 flex flex-col ${pkg.highlighted ? 'bg-indigo-900 text-white shadow-xl scale-[1.02] md:scale-[1.05] z-10' : 'bg-white text-slate-900 shadow-sm border border-slate-100'}`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1, duration: 0.4 }}
+              className={`relative rounded-3xl p-8 flex flex-col group cursor-pointer active:scale-[0.98] transition-all duration-300 ${pkg.highlighted ? 'bg-indigo-900 text-white shadow-xl md:scale-[1.05] z-20 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(49,46,129,0.4)]' : 'bg-white text-slate-900 shadow-sm border border-slate-100 z-10 hover:-translate-y-1 hover:shadow-xl hover:border-indigo-200 hover:z-30'}`}
             >
               {pkg.badge && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-indigo-500 text-white text-xs font-bold uppercase tracking-widest py-1.5 px-4 rounded-full shadow-md whitespace-nowrap">
@@ -1067,12 +1209,22 @@ function PricingSection() {
               <div className="h-px w-full bg-current opacity-10 mb-6"></div>
 
               <ul className="space-y-4 mb-8 flex-grow">
-                {pkg.features.map((feature, j) => (
-                  <li key={j} className="flex gap-3 text-sm">
-                    <CheckCircle2 className={`w-5 h-5 shrink-0 ${pkg.highlighted ? 'text-indigo-300' : 'text-indigo-500'}`} />
-                    <span className={pkg.highlighted ? 'text-indigo-50' : 'text-slate-600'}>{feature}</span>
-                  </li>
-                ))}
+                {pkg.features.map((feature, j) => {
+                  const parts = feature.split(/(\*\*.*?\*\*)/g);
+                  return (
+                    <li key={j} className="flex gap-3 text-sm">
+                      <CheckCircle2 className={`w-5 h-5 shrink-0 ${pkg.highlighted ? 'text-indigo-300' : 'text-indigo-500'}`} />
+                      <span className={pkg.highlighted ? 'text-indigo-50' : 'text-slate-600'}>
+                        {parts.map((part, i) => {
+                          if (part.startsWith('**') && part.endsWith('**')) {
+                            return <strong key={i} className={pkg.highlighted ? 'text-white' : 'text-slate-900 font-bold'}>{part.slice(2, -2)}</strong>;
+                          }
+                          return <span key={i}>{part}</span>;
+                        })}
+                      </span>
+                    </li>
+                  );
+                })}
               </ul>
 
               <a 
@@ -1081,7 +1233,7 @@ function PricingSection() {
               >
                 Get Started
               </a>
-            </div>
+            </motion.div>
           ))}
         </div>
 
