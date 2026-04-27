@@ -46,22 +46,22 @@ const CASE_STUDIES = [
 const ARTWORKS = [
   'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/POST1.jpg', 
   'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/POST2.jpg', 
-  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST3.jpg', 
-  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST4.jpg',
-  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST5.jpg', 
-  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST6.jpg', 
-  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/POST7.jpg'
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/POST3.jpg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/POST4.jpg',
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/POST5.jpg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/POST6.jpg', 
+  'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/POST7.jpg'
 ];
 
 const ADS = [
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/1_HighPerformanceMetaConversionAds.jpg', desc: 'High-Performance Meta Conversion Ads focused on maximizing ROAS.' },
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/2_EcommerceBasedFacebookSalesAds.jpg', desc: 'E-Commerce driven Facebook Sales campaigns for scalable growth.' },
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/3_HighPerformanceMetaLeadAds.jpg', desc: 'Optimized Meta Lead Ads designed for high-intent customer acquisition.' },
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/4_EcommerceBasedFacebookSalesAds.jpg', desc: 'Dynamic Product Ads and retargeting flows for E-commerce brands.' },
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/5_GA4EcommerceTrackingWordpress.jpg', desc: 'Advanced GA4 E-Commerce tracking implementation for WordPress/WooCommerce.' },
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/6_FacebookPixelConversionAPI.jpg', desc: 'Server-side tracking setup using Facebook Pixel & Conversions API.' },
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/7_metapixelandconversionapi.jpg', desc: 'Seamless Meta Pixel integration to ensure accurate data attribution.' },
-  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/8_FacebookAdsLeadGeneration.jpg', desc: 'End-to-end Facebook Ads strategy focused on B2B and B2C Lead Generation.' }
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/1_HighPerformanceMetaConversionAds.jpg', desc: 'High-Performance Meta Conversion Ads focused on maximizing ROAS.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/2_EcommerceBasedFacebookSalesAds.jpg', desc: 'E-Commerce driven Facebook Sales campaigns for scalable growth.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/3_HighPerformanceMetaLeadAds.jpg', desc: 'Optimized Meta Lead Ads designed for high-intent customer acquisition.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/4_EcommerceBasedFacebookSalesAds.jpg', desc: 'Dynamic Product Ads and retargeting flows for E-commerce brands.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/5_GA4EcommerceTrackingWordpress.jpg', desc: 'Advanced GA4 E-Commerce tracking implementation for WordPress/WooCommerce.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/6_FacebookPixelConversionAPI.jpg', desc: 'Server-side tracking setup using Facebook Pixel & Conversions API.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/7_metapixelandconversionapi.jpg', desc: 'Seamless Meta Pixel integration to ensure accurate data attribution.' },
+  { item: 'https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/8_FacebookAdsLeadGeneration.jpg', desc: 'End-to-end Facebook Ads strategy focused on B2B and B2C Lead Generation.' }
 ];
 
 export type PageType = 'home' | 'web-solutions' | 'pricing';
@@ -488,7 +488,7 @@ function AboutSection() {
         >
           <div className="flex justify-center md:justify-center">
              <div className="w-48 h-48 md:w-52 md:h-52 rounded-3xl overflow-hidden shadow-[0_10px_40px_rgb(0,0,0,0.06)] bg-white border-4 border-white/60">
-                <img src="https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/Public/myphoto.jpg" alt="Chamod" className="w-full h-full object-cover" />
+                <img src="https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/myphoto.jpg" alt="Chamod" className="w-full h-full object-cover" />
              </div>
           </div>
           <div className="grid grid-cols-2 gap-4 w-full md:w-auto">
