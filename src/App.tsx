@@ -796,16 +796,16 @@ function CaseStudiesSection() {
 }
 
 const WEB_SOLUTIONS = [
-  { title: "Tourism Website (Custom UI + Web Development)", url: "https://birdflightsrilanka.com/" },
-  { title: "Ecommerce Website (Web Development)", url: "https://santhari.com/" },
-  { title: "Architecture Business Website", url: "https://vertiqengineering.com/" },
-  { title: "Cosmetic Website", url: "https://sephyraluxe.com/" },
-  { title: "Ecommerce", url: "https://hellocomfylove.com/" },
-  { title: "B2B Portfolio", url: "https://ymacfootwear.com/" },
-  { title: "Clothing Web Site - Ecommerce Store", url: "http://kapro.lk/" },
-  { title: "Reseller-Management System", url: "http://www.sscdrop.com" },
-  { title: "Luxury Hotel Booking", url: "https://grand.zenax.info/" },
-  { title: "Gourmet Online Food Ordering", url: "https://mysunshine.lk/" }
+  { title: "Tourism Website (Custom UI + Web Development)", url: "https://birdflightsrilanka.com/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/birdflightsrilankacom-1.png" },
+  { title: "Ecommerce Website (Web Development)", url: "https://santhari.com/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/santharicom.png" },
+  { title: "Architecture Business Website", url: "https://vertiqengineering.com/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/vertiqengineeringcom.png" },
+  { title: "Cosmetic Website", url: "https://sephyraluxe.com/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/sephyraluxecom.png" },
+  { title: "Ecommerce", url: "https://hellocomfylove.com/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/hellocomfylovecom.png" },
+  { title: "B2B Portfolio", url: "https://ymacfootwear.com/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/ymacfootwearcom.png" },
+  { title: "Clothing Web Site - Ecommerce Store", url: "http://kapro.lk/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/kapro.png" },
+  { title: "Reseller-Management System", url: "http://www.sscdrop.com", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/sscdropcom.png" },
+  { title: "Luxury Hotel Booking", url: "https://grand.zenax.info/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/grand%20villa.png" },
+  { title: "Gourmet Online Food Ordering", url: "https://mysunshine.lk/", image: "https://raw.githubusercontent.com/ChamodRavihara-digital/ChamodRaviharaWeb/main/src/assets/Public/mysunshinelk.png" }
 ];
 
 function WebSolutions() {
@@ -918,7 +918,7 @@ function WebSolutions() {
               >
                 <div className="aspect-[16/10] bg-slate-100 rounded-2xl overflow-hidden mb-5 relative border border-slate-200 pointer-events-none">
                   <img 
-                    src={`https://image.thum.io/get/width/800/crop/800/${site.url}`} 
+                    src={site.image} 
                     alt={site.title}
                     className="w-full h-full object-cover group-hover/card:scale-105 transition-transform duration-700 pointer-events-none" 
                     loading="lazy"
